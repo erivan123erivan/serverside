@@ -3,7 +3,6 @@ const { generateJwtToken } = require("../helpers");
 const { sendMail } = require("../utils/NodeMailer");
 const User = require("../models/User");
 const cloudinary = require("../utils/cloudinary");
-const cors = require('cors');
 
 exports.profile = async(req, res) => {
   const { userName } = req.query;
@@ -11,16 +10,10 @@ exports.profile = async(req, res) => {
   res.send(user);
 }
 
-
-
 exports.register = async(req, res) => {
 
-  const { email, phoneNumber, userName, password } = req.body
+  const { email, phoneNumber, userName, password,  } = req.body
   const _user = await User.findOne({ email });
-  
-  app.use(cors({
-    origin: ['https://photos.google.com', 'https://drive.google.com'] // allow requests from Google Photos and Google Drive
-  }));
 
   if(_user){
       return res.send({
@@ -61,8 +54,6 @@ exports.register = async(req, res) => {
     
   }
 };
-
-
 
 exports.logedIn = async(req, res) => {
 
